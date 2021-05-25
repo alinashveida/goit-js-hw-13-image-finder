@@ -1,3 +1,5 @@
+const KEY = '21785158-d7699e1d635f5d39ae805dbbd';
+
 export default class ApiService {
   constructor() {
     this.searchValue = '';
@@ -5,14 +7,15 @@ export default class ApiService {
   }
   fetchArticles() {
     console.log(this);
-    const KEY = '21785158-d7699e1d635f5d39ae805dbbd';
 
     const URl = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.searchValue}&page=${this.page}&per_page=12&key=${KEY}`;
 
-    fetch(URl)
-      .then(r => r.json())
+    return fetch(URl)
+      .then(responce => responce.json())
       .then(data => {
         this.incrematePage();
+
+        return data.hits;
       });
   }
 
