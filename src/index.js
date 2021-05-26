@@ -6,17 +6,19 @@ import { info, notice, alert, error } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
 
-// const options = {
-//   headers: { Authorization: '21785158-d7699e1d635f5d39ae805dbbd' },
-// };
+import LoadMoreBtn from './js/load-more-btn';
+
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '.btn',
+  hidden: true,
+});
 
 const refs = {
   input: document.querySelector('.input'),
   btnSearch: document.querySelector('.btn-search'),
-  btn: document.querySelector('.btn'),
+  // btn: document.querySelector('.btn'),
   container: document.querySelector('.container'),
 };
-console.log(refs.btnSearch);
 
 const apiService = new ApiService();
 
@@ -25,11 +27,10 @@ console.log(galleryCard);
 
 function onSearch(event) {
   event.preventDefault();
-  clearMarkUp();
   apiService.searchValue = refs.input.value;
 
   if (apiService.searchValue === '') {
-    return notice({
+    notice({
       title: 'Ошибка',
       text: 'Введите текст',
       autoOpen: true,
@@ -42,24 +43,24 @@ function onSearch(event) {
     });
   }
 
-  console.log(apiService.searchValue);
+  loadMoreBtn.show();
   apiService.resetPage();
-  apiService.fetchArticles().then(renderMarkUp);
+  clearMarkUp();
+  fetchArticles();
 }
 
-// refs.input.addEventListener('input', onInput);
-
-// function onInput(evt) {
-//   apiService.searchValue = refs.input.value;
-//   apiService.resetPage;
-//   apiService.fetchArticles();
-// }
-refs.btn.addEventListener('click', onLoad);
+loadMoreBtn.refs.btn.addEventListener('click', onLoad);
 
 function onLoad(evt) {
-  apiService.fetchArticles().then(renderMarkUp);
+  fetchArticles();
+}
 
-  //   apiService.incrematePage();
+function fetchArticles() {
+  loadMoreBtn.disabled();
+  apiService.fetchArticles().then(hits => {
+    renderMarkUp(hits);
+    loadMoreBtn.enable();
+  });
 }
 
 function renderMarkUp(hits) {
