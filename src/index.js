@@ -71,7 +71,9 @@ function fetchArticles() {
       });
     }
     renderMarkUp(hits);
+
     loadMoreBtn.enable();
+    scroll();
   });
 }
 
@@ -83,20 +85,13 @@ function renderMarkUp(hits) {
 function clearMarkUp() {
   refs.container.innerHTML = '';
 }
+
+function scroll() {
+  const element = document.querySelector('body');
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
+}
+
 //---------------------------------------------------------
-// import * as basicLightbox from 'basiclightbox';
-
-// // const basicLightbox = require('basiclightbox');
-
-// const instance = basicLightbox.create(`
-//     <img src="https://pixabay.com/get/g30422e505bc696926e6687bd5b38dbd90a3e8254f02dfbb4c65692d520651d4dfc59f9https://www.google.com/search?q=vfibyf&rlz=1C1EKKP_ruUA838UA838&sxsrf=ALeKk02dRUeNLjz4dtsvYwr1PuOFLy58ow:1622042156464&tbm=isch&source=iu&ictx=1&fir=dkYVvJw_9G0KqM%252CgDaYMRmCSpZKEM%252C_&vet=1&usg=AI4_-kSy9NtAkZPMSUxuBWpQp6bho2efCw&sa=X&ved=2ahUKEwi_pa_00efwAhVklosKHdQoDIEQ9QF6BAgQEAE&biw=1536&bih=754&dpr=1.25#imgrc=AlRbaxnC_gi_9Mhttps://pixabay.com/get/g2bb75534621aeb3ff268b9a7dfc68150f1832eb83da23467e9a56a1b21ffa24ded69a5a37c73b01273868346d5d0893b015b178d950541b9696036f3e7cd3d37_1280.jpg" width="800" height="600">
-// `);
-
-// instance.show();
-
-// // import * as basicLightbox from 'basiclightbox';
-// // import template from './templates/1.hbs';
-
-// // const instance = basicLightbox.create(document.querySelector('template'));
-
-// // instance.show();
