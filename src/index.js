@@ -17,6 +17,7 @@ const refs = {
   input: document.querySelector('.input'),
   btnSearch: document.querySelector('.btn-search'),
   container: document.querySelector('.container'),
+  sentinel: document.querySelector('#sentinel'),
 };
 
 const apiService = new ApiService();
@@ -98,3 +99,19 @@ function scroll() {
 //     block: 'end',
 //   });
 // }
+
+//-------------------------SCROLL-------------------------------
+// const onEntry = entries => {
+//   entries.forEach(entry => {
+//     if (entry.isIntersecting && apiService.searchValue !== '') {
+//       console.log(entry);
+//       fetchArticles();
+//     }
+//   });
+// };
+// const options = {
+//   rootMargin: '150px',
+// };
+// const observer = new IntersectionObserver(onEntry, options);
+
+// observer.observe(refs.sentinel);
